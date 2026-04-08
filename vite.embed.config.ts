@@ -12,12 +12,19 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/embed.tsx",
-      name: "DocumentIntelUI",
+      name: "DocumentIntelUI", // 🔥 attaches to window
       fileName: "docintel",
-      formats: ["es"],
+      formats: ["umd"], // 🔥 IMPORTANT (not "es")
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom"], // keep React external
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
     },
+    assetsDir: "", // 🔥 keeps files clean (no /assets/)
   },
 });
